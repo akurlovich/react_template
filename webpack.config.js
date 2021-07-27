@@ -34,7 +34,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html'),
+      template: path.resolve(__dirname, 'src/index.html'),
       filename: 'index.html',
       minify: {
         collapseWhitespace: isProd
@@ -44,11 +44,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `./css/${filename('css')}`
     }),
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {from: path.resolve(__dirname, 'src/assets'), to: path.resolve(__dirname, 'app/assets')}
-    //   ]
-    // }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {from: path.resolve(__dirname, 'src/assets'), to: path.resolve(__dirname, 'app/assets')}
+      ]
+    }),
   ],
   devtool: isProd ? false : 'source-map',
   module: {
@@ -71,7 +71,8 @@ module.exports = {
             //   hmr: isDev
             // },
           },
-          'css-loader'
+          'css-loader',
+          'style-loader'
         ],
       },
       {
